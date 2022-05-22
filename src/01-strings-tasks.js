@@ -219,11 +219,9 @@ function getRectangleString(/* width, height */) {
  *
  */
 function encodeToRot13(str) {
-  return str.replace(/[a-z]/gi, (char) =>
-    String.fromCharCode(
-      char.charCodeAt(0) + (char.toLowerCase() <= 'm' ? 13 : -13)
-    )
-  );
+  return str.replace(/[a-z]/gi, (char) => String.fromCharCode(
+    char.charCodeAt(0) + (char.toLowerCase() <= 'm' ? 13 : -13),
+  ));
 }
 
 /**
