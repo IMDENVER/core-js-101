@@ -1,3 +1,5 @@
+/* eslint-disable no-bitwise */
+/* eslint-disable radix */
 /* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-plusplus */
@@ -185,11 +187,13 @@ function isInsideCircle(/* circle, point */) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  const newStr = [...new Set(str)];
-  if (newStr.length === 0) {
-    return null;
+  for (let i = 0; i < str.length; i++) {
+    const c = str.charAt(i);
+    if (str.indexOf(c) === i && str.indexOf(c, i + 1) === -1) {
+      return c;
+    }
   }
-  return newStr.slice(0, 1);
+  return null;
 }
 
 /**
@@ -230,8 +234,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -246,8 +250,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return num.toString().split('').reverse().join('');
 }
 
 /**
@@ -270,8 +274,14 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  return !(
+    [...String(ccn)]
+      .reverse()
+      .map((val, index) => (index % 2 ? val * 2 : Number(val)))
+      .map((val) => (val > 9 ? val - 9 : val))
+      .reduce((prev, curr) => prev + curr) % 10
+  );
 }
 
 /**
@@ -288,8 +298,12 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let strNum = [...String(num)].map(Number).reduce((a, b) => a + b);
+  while (strNum > 9) {
+    strNum = [...String(strNum)].map(Number).reduce((a, b) => a + b);
+  }
+  return strNum;
 }
 
 /**
