@@ -101,11 +101,9 @@ function getFastestPromise(array) {
 function chainPromises(array, action) {
   const output = [];
   return new Promise((resolve) => {
-    array.map((el) =>
-      el
-        .then((res) => output.push(res))
-        .catch((res) => new Error(`Invalid input ${res}`))
-    );
+    array.map((el) => el
+      .then((res) => output.push(res))
+      .catch((res) => new Error(`Invalid input ${res}`)));
     return resolve(output);
   }).then((res) => res.reduce(action));
 }
